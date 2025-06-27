@@ -5,6 +5,7 @@
   "author": "dqw <761945125@qq.com>",
   "private": true,
   "scripts": {
+    "readme": "Node18以上版本：export NODE_OPTIONS=--openssl-legacy-provider",
     "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
