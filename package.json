@@ -5,12 +5,12 @@
   "author": "dqw <761945125@qq.com>",
   "private": true,
   "scripts": {
-    "readme": "Node18以上版本：export NODE_OPTIONS=--openssl-legacy-provider",
-    "dev": "vue-cli-service serve",
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "readme": "Node18以上版本：使用 cross-env 设置 NODE_OPTIONS=--openssl-legacy-provider",
+    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
+    "serve": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "rm -rf engine;vue-cli-service build;mv dist engine;scp -r engine root@124.71.168.161:/usr/local/nginx/html"
+    "deploy": "rm -rf engine && cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build && mv dist engine && scp -r engine root@124.71.168.161:/usr/local/nginx/html"
   },
   "dependencies": {
     "@antv/data-set": "^0.11.4",
@@ -49,6 +49,7 @@
     "babel-plugin-transform-remove-console": "^6.9.4",
     "babel-polyfill": "^6.26.0",
     "compression-webpack-plugin": "^2.0.0",
+    "cross-env": "^10.1.0",
     "deepmerge": "^4.2.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
@@ -59,6 +60,7 @@
     "vue-cli-plugin-style-resources-loader": "^0.1.4",
     "vue-template-compiler": "^2.6.11",
     "vuepress": "^1.5.2",
+    "webpack-sources": "^1.4.3",
     "webpack-theme-color-replacer": "1.3.18",
     "whatwg-fetch": "^3.0.0"
   },
