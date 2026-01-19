@@ -28,7 +28,6 @@
                 v-if="value.leftValue.type === 0 || value.leftValue.type === 1 || value.leftValue.type === 10"
                 show-search
                 v-model="value.leftValue.value"
-                :value="value.leftValue.valueName"
                 placeholder="请输入关键字进行搜索"
                 :default-active-first-option="false"
                 :show-arrow="false"
@@ -157,7 +156,6 @@
                 v-if="value.rightValue.type === 0 || value.rightValue.type === 1 || value.rightValue.type === 10"
                 show-search
                 v-model="value.rightValue.value"
-                :value="value.rightValue.valueName"
                 placeholder="请输入关键字进行搜索"
                 :default-active-first-option="false"
                 :show-arrow="false"
@@ -216,7 +214,6 @@
 import { valueType } from '@/utils/value-type'
 import { getSymbolByValueType } from '@/utils/symbol'
 import { selectSearch } from '@/utils/selectSearch'
-import { setDefaultValue } from '@/utils/json'
 import moment from 'moment'
 
 export default {
@@ -226,19 +223,19 @@ export default {
       type: Object,
       default: () => ({
         leftValue: {
-          type: undefined,
-          valueType: undefined,
-          value: undefined,
-          valueName: undefined,
-          variableValue: undefined,
+          type: null,
+          valueType: null,
+          value: null,
+          valueName: null,
+          variableValue: null,
         },
-        symbol: undefined,
+        symbol: null,
         rightValue: {
-          type: undefined,
-          valueType: undefined,
-          value: undefined,
-          valueName: undefined,
-          variableValue: undefined,
+          type: null,
+          valueType: null,
+          value: null,
+          valueName: null,
+          variableValue: null,
         }
       })
     },
@@ -263,6 +260,19 @@ export default {
     }
   },
   methods: {
+    /**
+     * 创建默认值配置
+     */
+    createDefaultValue() {
+      return {
+        type: null,
+        valueType: null,
+        value: null,
+        valueName: null,
+        variableValue: null
+      }
+    },
+
     /**
      * 验证表单
      */
@@ -291,26 +301,22 @@ export default {
      * 左值类型改变
      */
     leftValueTypeChange(valueType) {
-      this.value.leftValue = {
-        value: undefined,
-        valueName: undefined,
-        variableValue: undefined,
-        valueType: undefined,
-      }
+      // 使用 Vue.set 或者 $set 确保响应性
+      this.$set(this.value, 'leftValue', this.createDefaultValue())
 
       if (valueType === 'PARAMETER') {
-        this.value.leftValue.type = 0
+        this.$set(this.value.leftValue, 'type', 0)
       } else if (valueType === 'VARIABLE') {
-        this.value.leftValue.type = 1
+        this.$set(this.value.leftValue, 'type', 1)
       } else if (valueType === 'GENERAL_RULE') {
-        this.value.leftValue.type = 10
+        this.$set(this.value.leftValue, 'type', 10)
       } else {
-        this.value.leftValue.type = 2
-        this.value.leftValue.valueType = valueType
+        this.$set(this.value.leftValue, 'type', 2)
+        this.$set(this.value.leftValue, 'valueType', valueType)
 
         if (valueType !== this.value.rightValue.valueType) {
-          this.value.rightValue = setDefaultValue(this.value.rightValue)
-          this.value.symbol = undefined
+          this.$set(this.value, 'rightValue', this.createDefaultValue())
+          this.$set(this.value, 'symbol', null)
           this.operators = []
         }
 
@@ -355,9 +361,9 @@ export default {
       }
 
       if (data.valueType !== this.value.rightValue.valueType) {
-        this.value.rightValue = setDefaultValue(this.value.rightValue)
+        this.$set(this.value, 'rightValue', this.createDefaultValue())
         this.operators = getSymbolByValueType(data.valueType)
-        this.value.symbol = undefined
+        this.$set(this.value, 'symbol', null)
       }
     },
 
@@ -387,22 +393,18 @@ export default {
      * 右值类型改变
      */
     rightValueTypeChange(valueType) {
-      this.value.rightValue = {
-        value: undefined,
-        valueName: undefined,
-        variableValue: undefined,
-        valueType: undefined,
-      }
+      // 使用 Vue.set 或者 $set 确保响应性
+      this.$set(this.value, 'rightValue', this.createDefaultValue())
 
       if (valueType === 'PARAMETER') {
-        this.value.rightValue.type = 0
+        this.$set(this.value.rightValue, 'type', 0)
       } else if (valueType === 'VARIABLE') {
-        this.value.rightValue.type = 1
+        this.$set(this.value.rightValue, 'type', 1)
       } else if (valueType === 'GENERAL_RULE') {
-        this.value.rightValue.type = 10
+        this.$set(this.value.rightValue, 'type', 10)
       } else {
-        this.value.rightValue.type = 2
-        this.value.rightValue.valueType = valueType
+        this.$set(this.value.rightValue, 'type', 2)
+        this.$set(this.value.rightValue, 'valueType', valueType)
       }
 
       this.rightSearchData = []

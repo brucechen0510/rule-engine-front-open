@@ -127,19 +127,19 @@ export default {
         conditionDescription: '',
         config: {
           leftValue: {
-            type: undefined,
-            valueType: undefined,
-            value: undefined,
-            valueName: undefined,
-            variableValue: undefined,
+            type: null,
+            valueType: null,
+            value: null,
+            valueName: null,
+            variableValue: null,
           },
-          symbol: undefined,
+          symbol: null,
           rightValue: {
-            type: undefined,
-            valueType: undefined,
-            value: undefined,
-            valueName: undefined,
-            variableValue: undefined,
+            type: null,
+            valueType: null,
+            value: null,
+            valueName: null,
+            variableValue: null,
           }
         }
       }
@@ -192,19 +192,19 @@ export default {
         conditionDescription: '',
         config: {
           leftValue: {
-            type: undefined,
-            valueType: undefined,
-            value: undefined,
-            valueName: undefined,
-            variableValue: undefined,
+            type: null,
+            valueType: null,
+            value: null,
+            valueName: null,
+            variableValue: null,
           },
-          symbol: undefined,
+          symbol: null,
           rightValue: {
-            type: undefined,
-            valueType: undefined,
-            value: undefined,
-            valueName: undefined,
-            variableValue: undefined,
+            type: null,
+            valueType: null,
+            value: null,
+            valueName: null,
+            variableValue: null,
           }
         }
       }
@@ -244,7 +244,7 @@ export default {
         if (valid) {
           // 如果是叶子节点，还需要验证条件配置
           if (this.form.nodeType === 'LEAF') {
-            if (!this.$refs.conditionConfig.validate()) {
+            if (this.$refs.conditionConfig && !this.$refs.conditionConfig.validate()) {
               return
             }
           }
