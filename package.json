@@ -7,7 +7,7 @@
   "scripts": {
     "readme": "Node18以上版本：export NODE_OPTIONS=--openssl-legacy-provider",
     "dev": "vue-cli-service serve",
-    "serve": "vue-cli-service serve",
+    "serve": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "deploy": "rm -rf engine;vue-cli-service build;mv dist engine;scp -r engine root@124.71.168.161:/usr/local/nginx/html"
