@@ -1,11 +1,23 @@
 <template>
   <div>
-    <page-layout>
+    <!-- 新版本 -->
+    <config-v2 v-if="isV2Version" :general-rule="generalRule" />
+
+    <!-- 传统版本 -->
+    <page-layout v-else>
 
       <contextmenu :itemList="menuItemList" :visible.sync="menuVisible" @select="onMenuSelect"/>
 
       <a-card title="规则配置" :bordered="false" @contextmenu="onContextmenu">
         <span slot="extra" style="margin-left: 16px;">
+                    <!-- 版本切换按钮 -->
+                    <a-tooltip title="体验新版多层条件构建器，支持任意层级且或关系组合">
+                        <a-button @click="switchToNewVersion" type="primary" ghost style="margin-right: 16px;">
+                            <a-icon type="experiment" />
+                            升级到新版本
+                        </a-button>
+                    </a-tooltip>
+
                     <a-popover title="当前编辑人员" trigger="click" arrow-point-at-center>
                         <template slot="content">
                         <a-list item-layout="horizontal" :data-source="[{
@@ -348,6 +360,7 @@ import FooterToolBar from '@/components/tool/FooterToolBar'
 import PageLayout from "@/layouts/PageLayout";
 import Contextmenu from '@/components/menu/Contextmenu'
 import ConditionModal from "@/pages/components/condition/ConditionModal";
+import ConfigV2 from './ConfigV2.vue'
 
 // api
 import {saveOrUpdate, deleteConditionGroup} from '@/services/conditionGroup'
@@ -369,7 +382,7 @@ import {getTypeName, valueType} from '@/utils/value-type'
 
 export default {
   name: "Config",
-  components: {PageLayout, FooterToolBar, Contextmenu, TaskGroup, ConditionModal},
+  components: {PageLayout, FooterToolBar, Contextmenu, TaskGroup, ConditionModal, ConfigV2},
   props: {
     id: {
       type: Number,
@@ -439,6 +452,12 @@ export default {
   },
   computed: {
     ...mapState('setting', ['isMobile']),
+    /**
+     * 是否使用V2版本
+     */
+    isV2Version() {
+      return this.$route.query.version === 'v2'
+    },
     menuItemList() {
       return [
         {key: '1', icon: 'appstore', text: "组件"},
@@ -447,6 +466,29 @@ export default {
     },
   },
   methods: {
+    /**
+     * 切换到新版本
+     */
+    switchToNewVersion() {
+      this.$confirm({
+        title: '升级到新版本',
+        content: '新版本支持任意层级的条件结构，可以构建更复杂的业务规则逻辑。是否要体验新版本？',
+        okText: '立即体验',
+        cancelText: '暂不升级',
+        onOk: () => {
+          // 创建新的路由路径，添加 v2 参数
+          const newRoute = {
+            ...this.$route,
+            query: {
+              ...this.$route.query,
+              version: 'v2'
+            }
+          }
+          this.$router.push(newRoute)
+        }
+      })
+    },
+
     valueType(v) {
       return valueType(v);
     },

@@ -309,11 +309,12 @@ export default {
         title: '切换版本',
         content: '确定要切换到传统的条件配置版本吗？当前未保存的多层条件配置可能会丢失。',
         onOk: () => {
-          // 这里可以添加版本切换逻辑
-          // 例如：路由跳转到原有的Config.vue页面
+          // 移除v2参数，回到传统版本
+          const newQuery = { ...this.$route.query }
+          delete newQuery.version
           this.$router.push({
-            name: 'config-legacy',
-            params: this.$route.params
+            ...this.$route,
+            query: newQuery
           })
         }
       })
