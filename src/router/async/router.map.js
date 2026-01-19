@@ -18,18 +18,6 @@ const routerMap = {
         redirect: '/login',
         component: view.tabs
     },
-    dashboard: {
-        name: '控制台',
-        component: view.blank
-    },
-    workplace: {
-        name: '工作台',
-        component: () => import('@/pages/dashboard/workplace')
-    },
-    analysis: {
-        name: '监控',
-        component: () => import('@/pages/dashboard/analysis')
-    },
     ruleManagement: {
         name: '规则管理',
         component: view.blank
@@ -53,19 +41,6 @@ const routerMap = {
         name: '详情页',
         icon: 'profile',
         component: view.blank
-    },
-    result: {
-        name: '结果页',
-        icon: 'check-circle-o',
-        component: view.page
-    },
-    success: {
-        name: '成功',
-        component: () => import('@/pages/result/Success')
-    },
-    error: {
-        name: '失败',
-        component: () => import('@/pages/result/Error')
     },
     exception: {
         name: '异常页',

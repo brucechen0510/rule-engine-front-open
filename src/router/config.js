@@ -24,49 +24,11 @@ const options = {
             path: '/',
             name: '首页',
             component: TabsView,
-            redirect: '/dashboard/workplace',
+            redirect: '/components/Inputparameter',
             children: [
                 {
-                    path: '/subError',
-                    name: '操作失败',
-                    meta: {
-                        invisible: true
-                    },
-                    component: () => import('@/pages/result/Error'),
-                },
-                {
-                    path: 'dashboard',
-                    name: '控制台',
-                    meta: {
-                        icon: 'dashboard'
-                    },
-                    component: BlankView,
-                    children: [
-                        {
-                            path: 'workplace',
-                            name: '工作台',
-                            meta: {
-                                page: {
-                                    closable: true
-                                }
-                            },
-                            component: () => import('@/pages/dashboard/workplace'),
-                        },
-                        // {
-                        //     path: 'analysis',
-                        //     name: '监控',
-                        //     meta: {
-                        //         page: {
-                        //             closable: true
-                        //         }
-                        //     },
-                        //     component: () => import('@/pages/dashboard/analysis'),
-                        // }
-                    ]
-                },
-                {
                     path: 'components',
-                    name: '组件',
+                    name: '组件管理',
                     meta: {
                         icon: 'gold'
                     },
@@ -139,54 +101,6 @@ const options = {
                             component: () => import('@/pages/rulemanagement/generalrule/view'),
                         },
                     ]
-                },
-                {
-                    path: 'settings',
-                    name: '系统设置',
-                    meta: {
-                        icon: 'setting'
-                    },
-                    component: BlankView,
-                    children: [
-                        {
-                            path: 'user',
-                            name: '用户列表',
-                            meta: {
-                                page: {
-                                    closable: true
-                                }
-                            },
-                            component: () => import('@/pages/settings/user')
-                        },
-                        {
-                            path: 'workspace',
-                            name: '工作空间',
-                            meta: {
-                                page: {
-                                    closable: true
-                                }
-                            },
-                            component: () => import('@/pages/settings/workspace')
-                        },
-                        {
-                            path: 'personal',
-                            name: '个人中心',
-                            meta: {
-                                page: {
-                                    closable: true
-                                }
-                            },
-                            component: () => import('@/pages/settings/personal')
-                        },
-                    ]
-                },
-                {
-                    name: '使用文档',
-                    path: 'document',
-                    meta: {
-                        icon: 'file-word',
-                        link: 'http://ruleengine.cn/doc'
-                    }
                 }
             ]
         },
